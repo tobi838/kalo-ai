@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { 
   ArrowRight, BarChart3, BrainCircuit, Clock, Code, Cpu, Database, 
-  FileText, Globe, LineChart, Lock, MessagesSquare, Puzzle, Shield, Zap 
+  FileText, Globe, LineChart, Lock, MessagesSquare, Puzzle, Shield, TrendingUp, 
+  Search, BarChart, Youtube, Zap 
 } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
 import Button from '../components/Button';
@@ -10,24 +10,24 @@ import Button from '../components/Button';
 const Features = () => {
   const primaryFeatures = [
     {
-      icon: <BarChart3 size={24} />,
-      title: 'Advanced Analytics',
-      description: 'Leverage sophisticated statistical models to extract meaningful patterns from complex datasets with ease.'
+      icon: <TrendingUp size={24} />,
+      title: 'Trending Product Analysis',
+      description: 'Identify and analyze products that are gaining traction, enabling informed decisions on inventory and marketing strategies.'
     },
     {
-      icon: <BrainCircuit size={24} />,
-      title: 'AI-Powered Insights',
-      description: 'Our machine learning algorithms analyze your data to predict trends and recommend optimal actions.'
+      icon: <Search size={24} />,
+      title: 'Advertising Optimization',
+      description: 'Access detailed analytics to refine advertising campaigns, ensuring optimal return on investment by targeting the right audience segments.'
     },
     {
-      icon: <LineChart size={24} />,
-      title: 'Interactive Visualizations',
-      description: 'Create stunning interactive dashboards that transform raw data into compelling visual stories.'
+      icon: <BarChart size={24} />,
+      title: 'Competitor Insight',
+      description: 'Monitor competitors\' performance metrics to understand market positioning and identify opportunities for differentiation.'
     },
     {
-      icon: <Database size={24} />,
-      title: 'Universal Data Connectors',
-      description: 'Connect to virtually any data source with our extensive library of pre-built connectors and APIs.'
+      icon: <Youtube size={24} />,
+      title: 'Video Inspiration',
+      description: 'Gain insights into top-performing videos and livestreams, providing creative inspiration for content that resonates with your target audience.'
     },
     {
       icon: <Globe size={24} />,
@@ -95,10 +95,10 @@ const Features = () => {
             </span>
           </div>
           <h1 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight animate-fade-up" style={{ animationDelay: '0.2s' }}>
-            Powerful features for modern data teams
+            Powerful features for data-driven marketing
           </h1>
           <p className="mt-6 text-xl text-foreground/80 max-w-3xl mx-auto animate-fade-up" style={{ animationDelay: '0.4s' }}>
-            Everything you need to transform raw data into actionable insights and drive better business decisions.
+            Everything you need to transform raw market data into actionable insights and drive better business decisions.
           </p>
         </div>
       </section>
@@ -111,10 +111,10 @@ const Features = () => {
               Core Capabilities
             </span>
             <h2 className="mt-6 text-3xl font-bold tracking-tight">
-              Essential tools for every data-driven organization
+              Essential market analysis tools
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
-              Our platform combines the most powerful data analytics features in one intuitive interface.
+              Our platform combines powerful analytics features for informed marketing decisions.
             </p>
           </div>
           
@@ -133,7 +133,7 @@ const Features = () => {
         </div>
       </section>
 
-      {/* Feature Spotlight */}
+      {/* Feature Spotlight - TikTok Shop Insights */}
       <section className="py-20 bg-background overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
@@ -142,29 +142,29 @@ const Features = () => {
                 Spotlight
               </span>
               <h2 className="mt-6 text-3xl font-bold tracking-tight">
-                AI-Powered Insights Engine
+                TikTok Shop Insights Engine
               </h2>
               <p className="mt-4 text-lg text-foreground/70">
-                Our advanced AI analyzes your data in real-time to uncover hidden patterns, predict future trends, and recommend actions that drive business results.
+                Our specialized TikTok Shop analytics provide real-time data on trending products, competitor performance, and market opportunities specific to the TikTok ecosystem.
               </p>
               
               <div className="mt-8 space-y-4">
                 {[
                   {
-                    title: 'Predictive Analytics',
-                    description: 'Forecast future outcomes based on historical data patterns'
+                    title: 'Product Trend Detection',
+                    description: 'Identify emerging product trends before they go viral'
                   },
                   {
-                    title: 'Natural Language Processing',
-                    description: 'Ask questions in plain English and get instant visual answers'
+                    title: 'Shop Performance Metrics',
+                    description: 'Compare your TikTok Shop performance against industry benchmarks'
                   },
                   {
-                    title: 'Automated Insights',
-                    description: 'Receive proactive notifications about significant changes in your data'
+                    title: 'Live Shopping Analytics',
+                    description: 'Get detailed insights on real-time shopping events and conversions'
                   },
                   {
-                    title: 'Custom ML Models',
-                    description: 'Deploy your own machine learning models or use our pre-built templates'
+                    title: 'Creator Collaboration Data',
+                    description: 'Identify high-performing creators for potential partnerships'
                   }
                 ].map((item, index) => (
                   <div key={index} className="flex">
@@ -185,20 +185,19 @@ const Features = () => {
               
               <div className="mt-10">
                 <Button icon={<ArrowRight />} iconPosition="right">
-                  Explore AI features
+                  Explore TikTok features
                 </Button>
               </div>
             </div>
             
             <div className="lg:col-span-6 relative">
               <div className="rounded-2xl overflow-hidden border border-border/50 shadow-xl relative">
-                {/* This would be a real image or interactive demo in production */}
+                {/* TikTok Shop Analytics UI Mock */}
                 <div className="aspect-[3/2] bg-gradient-to-br from-primary/5 to-blue-500/5 relative">
-                  {/* Mock AI dashboard UI */}
                   <div className="absolute inset-0 p-6">
                     <div className="h-full flex flex-col bg-card/80 rounded-xl p-4 border border-border/50 shadow-sm backdrop-blur-sm">
                       <div className="flex items-center justify-between mb-4">
-                        <div className="text-lg font-semibold">AI Insights Dashboard</div>
+                        <div className="text-lg font-semibold">TikTok Shop Dashboard</div>
                         <div className="flex space-x-2">
                           <div className="w-8 h-8 rounded-full bg-primary/10"></div>
                           <div className="w-8 h-8 rounded-full bg-primary/10"></div>
@@ -207,7 +206,7 @@ const Features = () => {
                       
                       <div className="flex-1 grid grid-cols-12 gap-4">
                         <div className="col-span-8 bg-background/80 rounded-lg p-3 flex flex-col">
-                          <div className="text-sm font-medium mb-2">Revenue Forecast</div>
+                          <div className="text-sm font-medium mb-2">Trending Products</div>
                           <div className="flex-1 flex items-end space-x-1">
                             {[40, 55, 70, 45, 60, 80, 65, 90, 75, 85, 95, 80].map((height, i) => (
                               <div 
@@ -221,7 +220,7 @@ const Features = () => {
                         
                         <div className="col-span-4 flex flex-col space-y-4">
                           <div className="flex-1 bg-background/80 rounded-lg p-3">
-                            <div className="text-sm font-medium mb-2">Anomaly Detection</div>
+                            <div className="text-sm font-medium mb-2">Competitor Ranking</div>
                             <div className="mt-2 h-4 bg-primary/10 rounded-full overflow-hidden">
                               <div className="h-full bg-primary/60 w-2/3"></div>
                             </div>
@@ -234,7 +233,7 @@ const Features = () => {
                           </div>
                           
                           <div className="flex-1 bg-background/80 rounded-lg p-3">
-                            <div className="text-sm font-medium mb-2">Recommendations</div>
+                            <div className="text-sm font-medium mb-2">Top Categories</div>
                             <div className="space-y-2">
                               <div className="h-4 bg-primary/10 rounded-full w-full"></div>
                               <div className="h-4 bg-primary/10 rounded-full w-3/4"></div>
@@ -264,10 +263,10 @@ const Features = () => {
               More Features
             </span>
             <h2 className="mt-6 text-3xl font-bold tracking-tight">
-              Additional capabilities to power your data strategy
+              Additional capabilities to power your market strategy
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
-              Discover more specialized features designed to help you get the most from your data.
+              Discover more specialized features designed to help you stay ahead of trends.
             </p>
           </div>
           
@@ -292,10 +291,10 @@ const Features = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold tracking-tight">
-              Ready to experience these features?
+              Ready to transform your market approach?
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
-              Start your free trial today and discover how KaloAI can transform your approach to data.
+              Start your free trial today and discover how our platform can drive your business growth.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" icon={<ArrowRight />} iconPosition="right">
