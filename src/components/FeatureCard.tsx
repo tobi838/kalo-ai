@@ -8,6 +8,7 @@ interface FeatureCardProps {
   icon: React.ReactNode;
   className?: string;
   hoverEffect?: boolean;
+  style?: React.CSSProperties;
 }
 
 const FeatureCard = ({
@@ -16,6 +17,7 @@ const FeatureCard = ({
   icon,
   className,
   hoverEffect = true,
+  style,
 }: FeatureCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,6 +29,7 @@ const FeatureCard = ({
         isHovered ? "bg-card shadow-lg" : "bg-card/50",
         className
       )}
+      style={style}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

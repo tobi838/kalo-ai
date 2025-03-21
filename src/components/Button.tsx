@@ -9,6 +9,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  as?: React.ElementType;
+  to?: string;
 }
 
 const Button = ({
@@ -19,6 +21,8 @@ const Button = ({
   fullWidth = false,
   icon,
   iconPosition = 'left',
+  as: Component = 'button',
+  to,
   ...props
 }: ButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -41,8 +45,11 @@ const Button = ({
   
   const widthStyle = fullWidth ? "w-full" : "";
   
+  // If using as a Link (or other component), we need to pass the 'to' prop
+  const componentProps = Component !== 'button' && to ? { to } : {};
+  
   return (
-    <button
+    <Component
       className={cn(
         baseStyles,
         variantStyles[variant],
@@ -52,6 +59,7 @@ const Button = ({
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      {...componentProps}
       {...props}
     >
       {icon && iconPosition === 'left' && (
@@ -69,7 +77,7 @@ const Button = ({
           {icon}
         </span>
       )}
-    </button>
+    </Component>
   );
 };
 
