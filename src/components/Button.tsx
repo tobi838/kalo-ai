@@ -1,83 +1,65 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { cva } from 'class-variance-authority';
 import { cn } from '../lib/utils';
+import { Button as ShadcnButton } from './ui/button';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
-  size?: 'sm' | 'md' | 'lg';
+type ButtonProps = {
   children: React.ReactNode;
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'primary';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
+  className?: string;
   fullWidth?: boolean;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
-  as?: React.ElementType;
-  to?: string;
-}
+  onClick?: () => void;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  [x: string]: any; // Allow for additional props like as, to, etc.
+};
 
 const Button = ({
-  variant = 'primary',
-  size = 'md',
   children,
-  className,
+  variant = 'default',
+  size = 'default',
+  className = '',
   fullWidth = false,
   icon,
   iconPosition = 'left',
-  as: Component = 'button',
-  to,
+  onClick,
+  disabled = false,
+  type = 'button',
   ...props
 }: ButtonProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const baseStyles = "relative font-medium rounded-lg transition-all duration-300 inline-flex items-center justify-center button-hover-effect";
-  
-  const variantStyles = {
-    primary: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg",
-    secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-    outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-    ghost: "hover:bg-accent hover:text-accent-foreground",
-    link: "text-primary underline-offset-4 hover:underline"
-  };
-  
-  const sizeStyles = {
-    sm: "h-9 px-3 text-sm",
-    md: "h-10 px-4",
-    lg: "h-11 px-6 text-lg"
-  };
-  
-  const widthStyle = fullWidth ? "w-full" : "";
-  
-  // If using as a Link (or other component), we need to pass the 'to' prop
-  const componentProps = Component !== 'button' && to ? { to } : {};
-  
+  // Map 'primary' to 'default' for ShadcnButton compatibility
+  const mappedVariant = variant === 'primary' ? 'default' : variant;
+
+  const classes = cn(
+    fullWidth && 'w-full',
+    className
+  );
+
+  // Create element with icon based on iconPosition
+  const content = (
+    <>
+      {icon && iconPosition === 'left' && icon}
+      {children}
+      {icon && iconPosition === 'right' && icon}
+    </>
+  );
+
   return (
-    <Component
-      className={cn(
-        baseStyles,
-        variantStyles[variant],
-        sizeStyles[size],
-        widthStyle,
-        className
-      )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      {...componentProps}
+    <ShadcnButton
+      variant={mappedVariant}
+      size={size}
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
       {...props}
     >
-      {icon && iconPosition === 'left' && (
-        <span className={cn("mr-2 transition-transform duration-300", 
-          isHovered ? "transform -translate-x-1" : ""
-        )}>
-          {icon}
-        </span>
-      )}
-      <span className="z-10">{children}</span>
-      {icon && iconPosition === 'right' && (
-        <span className={cn("ml-2 transition-transform duration-300", 
-          isHovered ? "transform translate-x-1" : ""
-        )}>
-          {icon}
-        </span>
-      )}
-    </Component>
+      {content}
+    </ShadcnButton>
   );
 };
 
