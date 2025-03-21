@@ -139,7 +139,7 @@ const Pricing = () => {
                 
                 <div className="p-6 border-b border-border/50">
                   <h3 className="text-2xl font-bold">{plan.name}</h3>
-                  <p className="mt-2 text-foreground/70 h-12">{plan.description}</p>
+                  <p className="mt-2 text-foreground/70 min-h-[3rem]">{plan.description}</p>
                   
                   <div className="mt-6 flex items-baseline">
                     <span className="text-4xl font-extrabold">
