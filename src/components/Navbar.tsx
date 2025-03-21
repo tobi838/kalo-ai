@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import Button from './Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,6 +19,15 @@ const Navbar = () => {
       }
     };
 
+    // Check if user prefers dark mode
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(prefersDark);
+    
+    // Apply dark mode if needed
+    if (prefersDark) {
+      document.documentElement.classList.add('dark');
+    }
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -26,6 +36,11 @@ const Navbar = () => {
     // Close mobile menu when route changes
     setIsOpen(false);
   }, [location]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle('dark');
+  };
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -47,8 +62,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo and brand */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center mr-2">
+            <Link to="/" className="flex items-center group">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center mr-2 transition-transform group-hover:scale-110">
                 <span className="text-primary-foreground font-bold">K</span>
               </div>
               <span className="text-xl font-semibold tracking-tight">KaloAI</span>
@@ -62,9 +77,9 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`transition-all duration-300 hover:text-primary ${
+                  className={`transition-all duration-300 hover:text-purple-600 ${
                     isActive(item.href) 
-                      ? 'text-primary font-medium' 
+                      ? 'text-purple-600 font-medium' 
                       : 'text-foreground/80 hover:text-foreground'
                   }`}
                 >
@@ -74,19 +89,33 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* CTA buttons */}
+          {/* CTA buttons and theme toggle */}
           <div className="hidden md:flex items-center space-x-4">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full bg-secondary/80 text-foreground hover:bg-secondary transition-colors"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <Button variant="ghost" size="sm">Sign in</Button>
-            <Button variant="primary" size="sm">Get started free</Button>
+            <Button variant="gradient" size="sm" animation="scale">Get started free</Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex md:hidden">
+          <div className="flex md:hidden items-center space-x-2">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full bg-secondary/80 text-foreground hover:bg-secondary transition-colors"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary hover:bg-background/10 transition duration-300"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-purple-600 hover:bg-background/10 transition duration-300"
+              aria-label="Open main menu"
             >
-              <span className="sr-only">Open main menu</span>
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
@@ -95,15 +124,15 @@ const Navbar = () => {
 
       {/* Mobile menu, show/hide based on menu state */}
       <div className={`${isOpen ? 'block animate-fade-in' : 'hidden'} md:hidden`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 glass mt-2 rounded-lg mx-4">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 glass mt-2 rounded-lg mx-4 shadow-lg">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
               className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
                 isActive(item.href)
-                  ? 'text-primary bg-primary/10'
-                  : 'text-foreground/80 hover:text-primary hover:bg-background/10'
+                  ? 'text-purple-600 bg-purple-50 dark:bg-purple-900/20'
+                  : 'text-foreground/80 hover:text-purple-600 hover:bg-background/10'
               }`}
             >
               {item.name}
@@ -111,7 +140,7 @@ const Navbar = () => {
           ))}
           <div className="pt-4 pb-2 border-t border-border/30 flex flex-col space-y-2">
             <Button variant="ghost" fullWidth>Sign in</Button>
-            <Button variant="primary" fullWidth>Get started free</Button>
+            <Button variant="gradient" fullWidth animation="scale">Get started free</Button>
           </div>
         </div>
       </div>
