@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Shield, X } from 'lucide-react';
+import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Shield } from 'lucide-react';
 import Button from '../components/Button';
 import FeatureCard from '../components/FeatureCard';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -533,7 +533,7 @@ const Solutions = () => {
           company: 'GlobalFinance',
           industry: 'Finance',
           challenge: 'Struggling with slow data analysis that delayed critical investment decisions.',
-          solution: 'Implemented KaloAI's real-time analytics platform with custom financial models.',
+          solution: 'Implemented KaloAI\'s real-time analytics platform with custom financial models.',
           results: [
             '40% faster insights generation',
             '22% improvement in investment returns',
@@ -546,7 +546,7 @@ const Solutions = () => {
           company: 'RetailGiant',
           industry: 'Retail',
           challenge: 'Inefficient inventory management resulting in overstock and stockouts across 200+ locations.',
-          solution: 'Deployed KaloAI's predictive inventory system with demand forecasting and automated replenishment.',
+          solution: 'Deployed KaloAI\'s predictive inventory system with demand forecasting and automated replenishment.',
           results: [
             '52% increase in inventory efficiency',
             '28% reduction in carrying costs',
@@ -559,7 +559,7 @@ const Solutions = () => {
           company: 'ManufacturePro',
           industry: 'Manufacturing',
           challenge: 'Frequent unexpected equipment failures causing costly production downtime.',
-          solution: 'Implemented KaloAI's predictive maintenance solution with IoT sensor integration.',
+          solution: 'Implemented KaloAI\'s predictive maintenance solution with IoT sensor integration.',
           results: [
             '35% reduction in maintenance costs',
             '45% decrease in unplanned downtime',
