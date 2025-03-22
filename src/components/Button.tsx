@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { cva } from 'class-variance-authority';
+import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { Button as ShadcnButton } from './ui/button';
 
 type ButtonProps = {
   children: React.ReactNode;
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'primary' | 'gradient';
-  size?: 'default' | 'sm' | 'lg' | 'icon'; // Removed 'xl' to match ShadcnButton's allowed sizes
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   className?: string;
   fullWidth?: boolean;
   icon?: React.ReactNode;
@@ -17,6 +17,8 @@ type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   animation?: 'none' | 'pulse' | 'bounce' | 'scale';
   loading?: boolean;
+  href?: string; // For internal routing with react-router
+  externalHref?: string; // For external links
   [x: string]: any; // Allow for additional props like as, to, etc.
 };
 
@@ -33,6 +35,8 @@ const Button = ({
   type = 'button',
   animation = 'none',
   loading = false,
+  href,
+  externalHref,
   ...props
 }: ButtonProps) => {
   // Map custom variants to ShadcnButton compatibility
@@ -74,6 +78,43 @@ const Button = ({
     </>
   );
 
+  // If it's a link to an internal route
+  if (href) {
+    return (
+      <Link to={href} className={cn("inline-block", fullWidth && "w-full")}>
+        <ShadcnButton
+          variant={mappedVariant}
+          size={size}
+          className={classes}
+          disabled={disabled || loading}
+          type={type}
+          {...props}
+        >
+          {content}
+        </ShadcnButton>
+      </Link>
+    );
+  }
+
+  // If it's a link to an external site
+  if (externalHref) {
+    return (
+      <a href={externalHref} target="_blank" rel="noopener noreferrer" className={cn("inline-block", fullWidth && "w-full")}>
+        <ShadcnButton
+          variant={mappedVariant}
+          size={size}
+          className={classes}
+          disabled={disabled || loading}
+          type={type}
+          {...props}
+        >
+          {content}
+        </ShadcnButton>
+      </a>
+    );
+  }
+
+  // Regular button
   return (
     <ShadcnButton
       variant={mappedVariant}

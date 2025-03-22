@@ -1,9 +1,13 @@
-import React from 'react';
-import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Shield } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Shield, X } from 'lucide-react';
 import Button from '../components/Button';
 import FeatureCard from '../components/FeatureCard';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const Solutions = () => {
+  const [openDialog, setOpenDialog] = useState<string | null>(null);
+
   const industries = [
     {
       icon: <Building size={24} />,
@@ -14,7 +18,8 @@ const Solutions = () => {
         'Market trend analysis',
         'Risk assessment automation',
         'Regulatory compliance monitoring'
-      ]
+      ],
+      id: 'finance'
     },
     {
       icon: <ShoppingCart size={24} />,
@@ -25,7 +30,8 @@ const Solutions = () => {
         'Inventory optimization',
         'Demand forecasting',
         'Personalized recommendations'
-      ]
+      ],
+      id: 'retail'
     },
     {
       icon: <Briefcase size={24} />,
@@ -36,7 +42,8 @@ const Solutions = () => {
         'Quality control automation',
         'Supply chain optimization',
         'Production efficiency analysis'
-      ]
+      ],
+      id: 'manufacturing'
     }
   ];
 
@@ -50,7 +57,8 @@ const Solutions = () => {
         'Automated report generation',
         'Data exploration tools',
         'Performance metric tracking'
-      ]
+      ],
+      id: 'business-intelligence'
     },
     {
       title: 'Advanced Analytics',
@@ -61,7 +69,8 @@ const Solutions = () => {
         'Anomaly detection',
         'Trend analysis',
         'What-if scenario planning'
-      ]
+      ],
+      id: 'advanced-analytics'
     },
     {
       title: 'Data Governance',
@@ -72,9 +81,16 @@ const Solutions = () => {
         'Data lineage tracking',
         'Compliance monitoring',
         'Quality assurance automation'
-      ]
+      ],
+      id: 'data-governance'
     }
   ];
+
+  // Function to close dialog
+  const closeDialog = () => setOpenDialog(null);
+
+  // Function to open a specific dialog
+  const openSpecificDialog = (id: string) => () => setOpenDialog(id);
 
   return (
     <div className="min-h-screen pb-20">
@@ -137,7 +153,13 @@ const Solutions = () => {
                   </div>
                   
                   <div className="mt-6">
-                    <Button variant="ghost" size="sm" icon={<ArrowRight size={16} />} iconPosition="right">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      icon={<ArrowRight size={16} />} 
+                      iconPosition="right"
+                      onClick={openSpecificDialog(industry.id)}
+                    >
                       Learn more
                     </Button>
                   </div>
@@ -190,7 +212,11 @@ const Solutions = () => {
                       ))}
                     </div>
                     
-                    <Button icon={<ArrowRight />} iconPosition="right">
+                    <Button 
+                      icon={<ArrowRight />} 
+                      iconPosition="right"
+                      onClick={openSpecificDialog(useCase.id)}
+                    >
                       Explore this solution
                     </Button>
                   </div>
@@ -314,21 +340,24 @@ const Solutions = () => {
                 industry: 'Finance',
                 title: '40% faster insights for investment decisions',
                 logo: 'GF',
-                image: 'finance'
+                image: 'finance',
+                id: 'case-finance'
               },
               {
                 company: 'RetailGiant',
                 industry: 'Retail',
                 title: '52% increase in inventory efficiency and reduced costs',
                 logo: 'RG',
-                image: 'retail'
+                image: 'retail',
+                id: 'case-retail'
               },
               {
                 company: 'ManufacturePro',
                 industry: 'Manufacturing',
                 title: '35% reduction in maintenance costs with predictive analytics',
                 logo: 'MP',
-                image: 'manufacturing'
+                image: 'manufacturing',
+                id: 'case-manufacturing'
               }
             ].map((study, index) => (
               <div 
@@ -353,7 +382,13 @@ const Solutions = () => {
                   
                   <p className="font-medium mb-6">{study.title}</p>
                   
-                  <Button variant="ghost" size="sm" icon={<ArrowRight size={16} />} iconPosition="right">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    icon={<ArrowRight size={16} />} 
+                    iconPosition="right"
+                    onClick={openSpecificDialog(study.id)}
+                  >
                     Read case study
                   </Button>
                 </div>
@@ -374,16 +409,205 @@ const Solutions = () => {
               Our team of experts is ready to help you implement the right solution for your business.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" icon={<ArrowRight />} iconPosition="right">
+              <Button 
+                size="lg" 
+                icon={<ArrowRight />} 
+                iconPosition="right" 
+                href="/contact"
+              >
                 Talk to an expert
               </Button>
-              <Button variant="outline" size="lg">
-                View all solutions
+              <Button 
+                variant="outline" 
+                size="lg" 
+                href="/features"
+              >
+                View all features
               </Button>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Dialogs for each industry and use case */}
+      {industries.map((industry) => (
+        <Dialog key={industry.id} open={openDialog === industry.id} onOpenChange={closeDialog}>
+          <DialogContent className="sm:max-w-3xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-primary/10 text-primary">
+                  {industry.icon}
+                </div>
+                {industry.title} Solutions
+              </DialogTitle>
+              <DialogDescription>
+                Explore how KaloAI helps {industry.title.toLowerCase()} companies transform their data.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-foreground/80">{industry.description}</p>
+              
+              <div className="bg-primary/5 p-4 rounded-lg">
+                <h4 className="font-medium mb-2">Key Benefits</h4>
+                <ul className="space-y-2">
+                  {industry.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-start">
+                      <svg className="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="pt-4">
+                <h4 className="font-medium mb-3">How it works</h4>
+                <p className="text-foreground/80 mb-4">
+                  Our {industry.title.toLowerCase()} solution integrates seamlessly with your existing systems and processes.
+                  The platform collects and analyzes data from multiple sources, providing actionable insights through 
+                  intuitive dashboards and automated reports.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button href="/features">Explore Features</Button>
+                  <Button variant="outline" href="/contact">Schedule a Demo</Button>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      ))}
+
+      {/* Dialogs for use cases */}
+      {useCases.map((useCase) => (
+        <Dialog key={useCase.id} open={openDialog === useCase.id} onOpenChange={closeDialog}>
+          <DialogContent className="sm:max-w-3xl">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-primary/10 text-primary">
+                  {useCase.icon}
+                </div>
+                {useCase.title}
+              </DialogTitle>
+              <DialogDescription>
+                Learn how our {useCase.title.toLowerCase()} solution can transform your business.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-foreground/80">{useCase.description}</p>
+              
+              <div className="bg-primary/5 p-4 rounded-lg">
+                <h4 className="font-medium mb-2">Key Capabilities</h4>
+                <ul className="space-y-2">
+                  {useCase.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-start">
+                      <svg className="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="pt-4">
+                <h4 className="font-medium mb-3">Implementation Process</h4>
+                <p className="text-foreground/80 mb-4">
+                  Our team works closely with you to understand your needs, configure the platform, 
+                  integrate with your data sources, and train your team to get the most value from the solution.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button href="/features">See All Features</Button>
+                  <Button variant="outline" href="/contact">Request a Demo</Button>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      ))}
+
+      {/* Dialogs for case studies */}
+      {[
+        {
+          id: 'case-finance',
+          company: 'GlobalFinance',
+          industry: 'Finance',
+          challenge: 'Struggling with slow data analysis that delayed critical investment decisions.',
+          solution: 'Implemented KaloAI's real-time analytics platform with custom financial models.',
+          results: [
+            '40% faster insights generation',
+            '22% improvement in investment returns',
+            '65% reduction in manual reporting time',
+            'Enhanced regulatory compliance reporting'
+          ]
+        },
+        {
+          id: 'case-retail',
+          company: 'RetailGiant',
+          industry: 'Retail',
+          challenge: 'Inefficient inventory management resulting in overstock and stockouts across 200+ locations.',
+          solution: 'Deployed KaloAI's predictive inventory system with demand forecasting and automated replenishment.',
+          results: [
+            '52% increase in inventory efficiency',
+            '28% reduction in carrying costs',
+            '35% fewer stockouts',
+            'Improved customer satisfaction scores by 18%'
+          ]
+        },
+        {
+          id: 'case-manufacturing',
+          company: 'ManufacturePro',
+          industry: 'Manufacturing',
+          challenge: 'Frequent unexpected equipment failures causing costly production downtime.',
+          solution: 'Implemented KaloAI's predictive maintenance solution with IoT sensor integration.',
+          results: [
+            '35% reduction in maintenance costs',
+            '45% decrease in unplanned downtime',
+            '20% improvement in equipment lifespan',
+            '12% increase in overall production capacity'
+          ]
+        }
+      ].map((study) => (
+        <Dialog key={study.id} open={openDialog === study.id} onOpenChange={closeDialog}>
+          <DialogContent className="sm:max-w-3xl">
+            <DialogHeader>
+              <DialogTitle>{study.company} Case Study</DialogTitle>
+              <DialogDescription>
+                {study.industry} - Success Story
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-medium">Challenge</h4>
+                <p className="text-foreground/80">{study.challenge}</p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium">Solution</h4>
+                <p className="text-foreground/80">{study.solution}</p>
+              </div>
+              
+              <div>
+                <h4 className="font-medium">Results</h4>
+                <ul className="space-y-2 mt-2">
+                  {study.results.map((result, i) => (
+                    <li key={i} className="flex items-start">
+                      <svg className="w-5 h-5 text-primary mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="pt-4">
+                <Button href="/contact">Get Similar Results</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      ))}
     </div>
   );
 };

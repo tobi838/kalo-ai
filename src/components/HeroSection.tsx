@@ -64,10 +64,10 @@ const HeroSection = () => {
         </p>
         
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style={{ animationDelay: '0.6s' }}>
-          <Button size="lg" icon={<ArrowRight />} iconPosition="right">
+          <Button size="lg" icon={<ArrowRight />} iconPosition="right" href="/features">
             Start for free
           </Button>
-          <Button variant="outline" size="lg">
+          <Button variant="outline" size="lg" href="/solutions">
             See how it works
           </Button>
         </div>

@@ -98,8 +98,8 @@ const Navbar = () => {
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <Button variant="ghost" size="sm">Sign in</Button>
-            <Button variant="gradient" size="sm" animation="scale">Get started free</Button>
+            <Button variant="ghost" size="sm" href="/contact">Sign in</Button>
+            <Button variant="gradient" size="sm" animation="scale" href="/features">Get started free</Button>
           </div>
 
           {/* Mobile menu button */}
@@ -139,8 +139,8 @@ const Navbar = () => {
             </Link>
           ))}
           <div className="pt-4 pb-2 border-t border-border/30 flex flex-col space-y-2">
-            <Button variant="ghost" fullWidth>Sign in</Button>
-            <Button variant="gradient" fullWidth animation="scale">Get started free</Button>
+            <Button variant="ghost" fullWidth href="/contact">Sign in</Button>
+            <Button variant="gradient" fullWidth animation="scale" href="/features">Get started free</Button>
           </div>
         </div>
       </div>
