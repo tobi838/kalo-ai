@@ -7,7 +7,7 @@ import { Button as ShadcnButton } from './ui/button';
 type ButtonProps = {
   children: React.ReactNode;
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'primary' | 'gradient';
-  size?: 'default' | 'sm' | 'lg' | 'xl' | 'icon';
+  size?: 'default' | 'sm' | 'lg' | 'icon'; // Removed 'xl' to match ShadcnButton's allowed sizes
   className?: string;
   fullWidth?: boolean;
   icon?: React.ReactNode;
