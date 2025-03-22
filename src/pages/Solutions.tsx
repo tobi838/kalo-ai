@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Shield } from 'lucide-react';
+import { ArrowRight, BarChart, LineChart, TrendingUp, Video, ShoppingCart, Users } from 'lucide-react';
 import Button from '../components/Button';
 import FeatureCard from '../components/FeatureCard';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -10,79 +10,79 @@ const Solutions = () => {
 
   const industries = [
     {
-      icon: <Building size={24} />,
-      title: 'Finance',
-      description: 'Optimize investment strategies, detect fraud, and improve risk management with data-driven insights.',
+      icon: <Video size={24} />,
+      title: 'Content Creators',
+      description: 'Understand your audience engagement, optimize content strategy, and maximize monetization opportunities.',
       benefits: [
-        'Real-time fraud detection',
-        'Market trend analysis',
-        'Risk assessment automation',
-        'Regulatory compliance monitoring'
+        'Content performance analytics',
+        'Audience growth tracking',
+        'Engagement rate optimization',
+        'Revenue stream analysis'
       ],
-      id: 'finance'
+      id: 'creators'
+    },
+    {
+      icon: <Users size={24} />,
+      title: 'Influencers',
+      description: 'Track your social impact, demonstrate value to brand partners, and optimize your content for maximum engagement.',
+      benefits: [
+        'Cross-platform analytics',
+        'Sponsored content ROI tracking',
+        'Audience demographic insights',
+        'Performance benchmarking'
+      ],
+      id: 'influencers'
     },
     {
       icon: <ShoppingCart size={24} />,
-      title: 'Retail',
-      description: 'Enhance customer experiences, optimize inventory, and boost sales through data-powered decision making.',
+      title: 'E-commerce Sellers',
+      description: 'Optimize your product listings, understand customer behavior, and increase sales through data-driven decisions.',
       benefits: [
-        'Customer segmentation',
-        'Inventory optimization',
-        'Demand forecasting',
-        'Personalized recommendations'
+        'Product performance tracking',
+        'Customer behavior insights',
+        'Sales funnel optimization',
+        'Competitive market analysis'
       ],
-      id: 'retail'
-    },
-    {
-      icon: <Briefcase size={24} />,
-      title: 'Manufacturing',
-      description: 'Streamline operations, prevent downtime, and improve quality control through data intelligence.',
-      benefits: [
-        'Predictive maintenance',
-        'Quality control automation',
-        'Supply chain optimization',
-        'Production efficiency analysis'
-      ],
-      id: 'manufacturing'
+      id: 'ecommerce'
     }
   ];
 
   const useCases = [
     {
-      title: 'Business Intelligence',
-      description: 'Transform raw data into actionable insights with interactive dashboards and automated reporting.',
+      title: 'Social Media Analytics',
+      description: 'Comprehensive insights across all social platforms with unified metrics for true performance understanding.',
+      icon: <BarChart size={24} />,
+      benefits: [
+        'Cross-platform performance metrics',
+        'Content strategy recommendations',
+        'Audience growth tracking',
+        'Engagement pattern analysis'
+      ],
+      id: 'social-analytics'
+    },
+    {
+      title: 'Trend Detection',
+      description: 'Stay ahead of viral content and market trends to position your content and products for maximum impact.',
+      icon: <TrendingUp size={24} />,
+      benefits: [
+        'Real-time trend alerts',
+        'Category-specific insights',
+        'Competitive trend analysis',
+        'Early opportunity detection'
+      ],
+      id: 'trend-detection'
+    },
+    {
+      title: 'Revenue Optimization',
+      description: 'Maximize your earnings by understanding which content, products, and strategies drive the most revenue.',
       icon: <LineChart size={24} />,
       benefits: [
-        'Interactive visualization dashboards',
-        'Automated report generation',
-        'Data exploration tools',
-        'Performance metric tracking'
+        'Revenue stream analysis',
+        'Monetization strategy testing',
+        'Pricing optimization',
+        'Conversion rate improvement'
       ],
-      id: 'business-intelligence'
-    },
-    {
-      title: 'Advanced Analytics',
-      description: 'Leverage sophisticated analytical models to uncover hidden patterns and predict future outcomes.',
-      icon: <Lightbulb size={24} />,
-      benefits: [
-        'Predictive modeling',
-        'Anomaly detection',
-        'Trend analysis',
-        'What-if scenario planning'
-      ],
-      id: 'advanced-analytics'
-    },
-    {
-      title: 'Data Governance',
-      description: 'Ensure data quality, security, and compliance across your entire organization.',
-      icon: <Shield size={24} />,
-      benefits: [
-        'Access control management',
-        'Data lineage tracking',
-        'Compliance monitoring',
-        'Quality assurance automation'
-      ],
-      id: 'data-governance'
+      id: 'revenue-optimization'
     }
   ];
 
@@ -103,10 +103,10 @@ const Solutions = () => {
             </span>
           </div>
           <h1 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight animate-fade-up" style={{ animationDelay: '0.2s' }}>
-            Data solutions for every industry
+            Analytics for creators and sellers
           </h1>
           <p className="mt-6 text-xl text-foreground/80 max-w-3xl mx-auto animate-fade-up" style={{ animationDelay: '0.4s' }}>
-            Discover how KaloAI can solve your industry-specific data challenges and unlock new opportunities for growth.
+            Discover how KaloAI helps content creators, influencers, and e-commerce sellers make data-driven decisions to grow their business.
           </p>
         </div>
       </section>
@@ -116,17 +116,17 @@ const Solutions = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
-              Industry Solutions
+              Tailored Solutions
             </span>
             <h2 className="mt-6 text-3xl font-bold tracking-tight">
-              Tailored solutions for your industry
+              Built for your specific needs
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
               Our platform adapts to the unique challenges and opportunities in your specific industry.
             </p>
           </div>
           
-          <div className="mt-16 grid gap-8 md:grid-cols-2">
+          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {industries.map((industry, index) => (
               <div 
                 key={index}
@@ -178,10 +178,10 @@ const Solutions = () => {
               Use Cases
             </span>
             <h2 className="mt-6 text-3xl font-bold tracking-tight">
-              Solving real business challenges
+              Solving real creator challenges
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
-              Explore how KaloAI addresses specific use cases across different business functions.
+              Explore how KaloAI addresses specific challenges in content creation, social influence, and e-commerce.
             </p>
           </div>
           
@@ -238,8 +238,16 @@ const Solutions = () => {
                             {index === 0 && (
                               <div className="flex-1 grid grid-cols-12 gap-4">
                                 <div className="col-span-4 space-y-4">
-                                  <div className="bg-background/80 rounded-lg p-3 h-32"></div>
-                                  <div className="bg-background/80 rounded-lg p-3 h-32"></div>
+                                  <div className="bg-background/80 rounded-lg p-3 h-32 flex flex-col justify-center items-center">
+                                    <div className="w-12 h-12 rounded-full bg-primary/20 mb-2"></div>
+                                    <div className="h-4 w-16 bg-primary/10 rounded-md"></div>
+                                    <div className="h-3 w-12 bg-primary/10 rounded-md mt-1"></div>
+                                  </div>
+                                  <div className="bg-background/80 rounded-lg p-3 h-32 flex flex-col justify-center items-center">
+                                    <div className="w-12 h-12 rounded-full bg-blue-500/20 mb-2"></div>
+                                    <div className="h-4 w-16 bg-primary/10 rounded-md"></div>
+                                    <div className="h-3 w-12 bg-primary/10 rounded-md mt-1"></div>
+                                  </div>
                                 </div>
                                 <div className="col-span-8 bg-background/80 rounded-lg p-3">
                                   <div className="h-8 w-1/3 bg-primary/10 rounded-md mb-4"></div>
@@ -289,7 +297,7 @@ const Solutions = () => {
                                   <div className="h-64 relative">
                                     <div className="absolute inset-0 flex items-center justify-center">
                                       <div className="w-32 h-32 rounded-full border-8 border-primary/30 flex items-center justify-center">
-                                        <div className="text-2xl font-bold">87%</div>
+                                        <div className="text-2xl font-bold">+28%</div>
                                       </div>
                                     </div>
                                     <div className="absolute bottom-0 left-0 right-0 h-24 flex justify-between items-end">
@@ -326,38 +334,38 @@ const Solutions = () => {
               Success Stories
             </span>
             <h2 className="mt-6 text-3xl font-bold tracking-tight">
-              See how customers are succeeding with KaloAI
+              See how creators and sellers succeed with KaloAI
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
-              Real stories from real customers who transformed their businesses with our platform.
+              Real stories from real users who transformed their businesses with our platform.
             </p>
           </div>
           
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             {[
               {
-                company: 'GlobalFinance',
-                industry: 'Finance',
-                title: '40% faster insights for investment decisions',
-                logo: 'GF',
-                image: 'finance',
-                id: 'case-finance'
+                company: 'Fashion Influencer',
+                industry: 'Influencer',
+                title: '67% growth in engagement with data-driven content strategy',
+                logo: 'FI',
+                image: 'influencer',
+                id: 'case-influencer'
               },
               {
-                company: 'RetailGiant',
-                industry: 'Retail',
-                title: '52% increase in inventory efficiency and reduced costs',
-                logo: 'RG',
-                image: 'retail',
-                id: 'case-retail'
+                company: 'Tech Review Channel',
+                industry: 'Content Creator',
+                title: '45% increase in revenue through optimized sponsorship deals',
+                logo: 'TR',
+                image: 'creator',
+                id: 'case-creator'
               },
               {
-                company: 'ManufacturePro',
-                industry: 'Manufacturing',
-                title: '35% reduction in maintenance costs with predictive analytics',
-                logo: 'MP',
-                image: 'manufacturing',
-                id: 'case-manufacturing'
+                company: 'Handmade Store',
+                industry: 'E-commerce',
+                title: '52% boost in conversions with targeted product strategy',
+                logo: 'HS',
+                image: 'ecommerce',
+                id: 'case-ecommerce'
               }
             ].map((study, index) => (
               <div 
@@ -403,10 +411,10 @@ const Solutions = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold tracking-tight">
-              Ready to solve your data challenges?
+              Ready to grow your online business?
             </h2>
             <p className="mt-4 text-lg text-foreground/70">
-              Our team of experts is ready to help you implement the right solution for your business.
+              Join thousands of creators and sellers who use KaloAI to make smarter, data-driven decisions.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -415,7 +423,7 @@ const Solutions = () => {
                 iconPosition="right" 
                 href="/contact"
               >
-                Talk to an expert
+                Start your free trial
               </Button>
               <Button 
                 variant="outline" 
@@ -429,7 +437,7 @@ const Solutions = () => {
         </div>
       </section>
 
-      {/* Dialogs for each industry and use case */}
+      {/* Dialogs for each industry */}
       {industries.map((industry) => (
         <Dialog key={industry.id} open={openDialog === industry.id} onOpenChange={closeDialog}>
           <DialogContent className="sm:max-w-3xl">
@@ -441,7 +449,7 @@ const Solutions = () => {
                 {industry.title} Solutions
               </DialogTitle>
               <DialogDescription>
-                Explore how KaloAI helps {industry.title.toLowerCase()} companies transform their data.
+                Explore how KaloAI helps {industry.title.toLowerCase()} transform their data into growth.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
@@ -464,8 +472,8 @@ const Solutions = () => {
               <div className="pt-4">
                 <h4 className="font-medium mb-3">How it works</h4>
                 <p className="text-foreground/80 mb-4">
-                  Our {industry.title.toLowerCase()} solution integrates seamlessly with your existing systems and processes.
-                  The platform collects and analyzes data from multiple sources, providing actionable insights through 
+                  Our solution for {industry.title.toLowerCase()} integrates with all your platforms and tools.
+                  The analytics engine collects data across channels, providing actionable insights through 
                   intuitive dashboards and automated reports.
                 </p>
                 <div className="flex flex-wrap gap-4">
@@ -511,10 +519,10 @@ const Solutions = () => {
               </div>
               
               <div className="pt-4">
-                <h4 className="font-medium mb-3">Implementation Process</h4>
+                <h4 className="font-medium mb-3">Getting Started</h4>
                 <p className="text-foreground/80 mb-4">
-                  Our team works closely with you to understand your needs, configure the platform, 
-                  integrate with your data sources, and train your team to get the most value from the solution.
+                  Getting started is easy. Connect your accounts, import your data, and within minutes 
+                  you'll have access to powerful insights that can transform your business strategy.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button href="/features">See All Features</Button>
@@ -529,42 +537,42 @@ const Solutions = () => {
       {/* Dialogs for case studies */}
       {[
         {
-          id: 'case-finance',
-          company: 'GlobalFinance',
-          industry: 'Finance',
-          challenge: 'Struggling with slow data analysis that delayed critical investment decisions.',
-          solution: 'Implemented KaloAI\'s real-time analytics platform with custom financial models.',
+          id: 'case-influencer',
+          company: 'Fashion Influencer',
+          industry: 'Influencer',
+          challenge: 'Struggling to grow audience engagement despite consistent content posting.',
+          solution: 'Implemented KaloAI\'s analytics suite to identify optimal posting times and content themes.',
           results: [
-            '40% faster insights generation',
-            '22% improvement in investment returns',
-            '65% reduction in manual reporting time',
-            'Enhanced regulatory compliance reporting'
+            '67% increase in engagement rates',
+            '43% growth in followers within 3 months',
+            '85% more brand partnership inquiries',
+            '2.5x increase in average post reach'
           ]
         },
         {
-          id: 'case-retail',
-          company: 'RetailGiant',
-          industry: 'Retail',
-          challenge: 'Inefficient inventory management resulting in overstock and stockouts across 200+ locations.',
-          solution: 'Deployed KaloAI\'s predictive inventory system with demand forecasting and automated replenishment.',
+          id: 'case-creator',
+          company: 'Tech Review Channel',
+          industry: 'Content Creator',
+          challenge: 'Unable to optimize monetization strategies due to lack of audience insights.',
+          solution: 'Used KaloAI\'s audience analysis and content performance tracking to negotiate better sponsorships.',
           results: [
-            '52% increase in inventory efficiency',
-            '28% reduction in carrying costs',
-            '35% fewer stockouts',
-            'Improved customer satisfaction scores by 18%'
+            '45% increase in sponsorship revenue',
+            '32% improvement in video completion rates',
+            '28% growth in channel subscribers',
+            'Secured 3 long-term brand partnerships'
           ]
         },
         {
-          id: 'case-manufacturing',
-          company: 'ManufacturePro',
-          industry: 'Manufacturing',
-          challenge: 'Frequent unexpected equipment failures causing costly production downtime.',
-          solution: 'Implemented KaloAI\'s predictive maintenance solution with IoT sensor integration.',
+          id: 'case-ecommerce',
+          company: 'Handmade Store',
+          industry: 'E-commerce',
+          challenge: 'Struggling with inconsistent sales and difficulty identifying profitable products.',
+          solution: 'Implemented KaloAI\'s e-commerce analytics to track product performance and customer behavior.',
           results: [
-            '35% reduction in maintenance costs',
-            '45% decrease in unplanned downtime',
-            '20% improvement in equipment lifespan',
-            '12% increase in overall production capacity'
+            '52% increase in conversion rates',
+            '38% reduction in ad spend waste',
+            '73% improvement in inventory turnover',
+            '41% increase in average order value'
           ]
         }
       ].map((study) => (
