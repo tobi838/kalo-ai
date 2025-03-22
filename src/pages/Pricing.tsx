@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, HelpCircle } from 'lucide-react';
 import Button from '../components/Button';
+import ChatBot from '../components/ChatBot';
 
 const Pricing = () => {
   const [annual, setAnnual] = useState(true);
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
   
   const plans = [
     {
@@ -161,6 +163,7 @@ const Pricing = () => {
                       iconPosition="right"
                       variant={plan.popular ? "primary" : "outline"}
                       className={plan.popular ? "shadow-md" : ""}
+                      onClick={() => plan.name === 'Enterprise' ? setIsChatBotOpen(true) : null}
                     >
                       {plan.cta}
                     </Button>
@@ -347,7 +350,12 @@ const Pricing = () => {
               Our team is ready to help you find the perfect plan for your needs.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" icon={<ArrowRight />} iconPosition="right">
+              <Button 
+                size="lg" 
+                icon={<ArrowRight />} 
+                iconPosition="right"
+                onClick={() => setIsChatBotOpen(true)}
+              >
                 Contact sales
               </Button>
               <Button variant="outline" size="lg">
@@ -357,6 +365,9 @@ const Pricing = () => {
           </div>
         </div>
       </section>
+
+      {/* Chat Bot */}
+      <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
     </div>
   );
 };
