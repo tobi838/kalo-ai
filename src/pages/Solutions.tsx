@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Activity, Shield } from 'lucide-react';
+import { ArrowRight, Building, LineChart, Lightbulb, ShoppingCart, Briefcase, Shield } from 'lucide-react';
 import Button from '../components/Button';
 import FeatureCard from '../components/FeatureCard';
 
@@ -26,17 +25,6 @@ const Solutions = () => {
         'Inventory optimization',
         'Demand forecasting',
         'Personalized recommendations'
-      ]
-    },
-    {
-      icon: <Activity size={24} />,
-      title: 'Healthcare',
-      description: 'Improve patient outcomes, optimize operations, and reduce costs with advanced analytics.',
-      benefits: [
-        'Patient outcome prediction',
-        'Resource allocation optimization',
-        'Clinical trial analysis',
-        'Operational efficiency insights'
       ]
     },
     {
@@ -329,18 +317,18 @@ const Solutions = () => {
                 image: 'finance'
               },
               {
-                company: 'MediTech',
-                industry: 'Healthcare',
-                title: 'Improved patient outcomes by 23% with predictive analytics',
-                logo: 'MT',
-                image: 'healthcare'
-              },
-              {
                 company: 'RetailGiant',
                 industry: 'Retail',
                 title: '52% increase in inventory efficiency and reduced costs',
                 logo: 'RG',
                 image: 'retail'
+              },
+              {
+                company: 'ManufacturePro',
+                industry: 'Manufacturing',
+                title: '35% reduction in maintenance costs with predictive analytics',
+                logo: 'MP',
+                image: 'manufacturing'
               }
             ].map((study, index) => (
               <div 
