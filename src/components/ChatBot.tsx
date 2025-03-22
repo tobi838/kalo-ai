@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Bot, Send, X, ChevronDown, ChevronUp, Minimize2, Maximize2 } from 'lucide-react';
-import Button from './Button';
+import { Bot, Send, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from './ui/button';
 
 type Message = {
   text: string;
@@ -24,6 +24,7 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const handleSendMessage = () => {
@@ -37,27 +38,58 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
 
     setMessages((prev) => [...prev, newMessage]);
     setInputValue('');
+    setIsTyping(true);
 
     // Simulate bot response after a short delay
     setTimeout(() => {
-      const botResponses = [
-        "I'd be happy to tell you more about our pricing plans. What specific information are you looking for?",
-        "That's a great question! Our Enterprise plan includes unlimited users and advanced AI insights. Would you like me to connect you with a human sales rep for more details?",
-        "We offer custom plans for organizations with specific needs. Can you tell me more about your requirements?",
-        "Yes, all our plans include a 14-day free trial with full access to features. Would you like me to help you get started?",
-        "We do offer special discounts for nonprofits and educational institutions. I can have someone from our team contact you with more information.",
-      ];
-
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-
+      const botResponses = getBotResponse(inputValue.toLowerCase());
+      
       const botReply: Message = {
-        text: randomResponse,
+        text: botResponses,
         sender: 'bot',
         timestamp: new Date(),
       };
 
+      setIsTyping(false);
       setMessages((prev) => [...prev, botReply]);
-    }, 1000);
+    }, 1500);
+  };
+
+  const getBotResponse = (input: string): string => {
+    // Simple keyword matching for more contextual responses
+    if (input.includes('price') || input.includes('cost') || input.includes('pricing')) {
+      return "Our pricing starts at $24/month for the Starter plan, $69/month for Professional, and $179/month for Enterprise when billed annually. Would you like more specific information about a particular plan?";
+    } else if (input.includes('trial') || input.includes('free')) {
+      return "Yes, all our plans include a 14-day free trial with full access to features. No credit card required to start. Would you like me to help you get started?";
+    } else if (input.includes('discount') || input.includes('offer')) {
+      return "We offer special discounts for nonprofits and educational institutions. I can have someone from our team contact you with more information. Could you share your email address?";
+    } else if (input.includes('enterprise') || input.includes('custom')) {
+      return "Our Enterprise plan is customizable to your organization's needs. It includes unlimited users, data points, and advanced security features. Would you like me to arrange a call with our sales team to discuss your specific requirements?";
+    } else if (input.includes('feature') || input.includes('capability')) {
+      return "Our platform offers advanced analytics, AI-powered insights, custom dashboards, and team collaboration tools. The specific features vary by plan. Which capabilities are most important for your use case?";
+    } else if (input.includes('support') || input.includes('help')) {
+      return "We offer email support for all plans, with priority support for Professional and dedicated support for Enterprise customers. Our Enterprise plan also includes onboarding assistance and SLA guarantees.";
+    } else if (input.includes('security') || input.includes('compliance')) {
+      return "Security is a top priority for us. We offer SSO and advanced security features with our Enterprise plan, and all plans use encryption for data protection. Do you have specific compliance requirements?";
+    } else if (input.includes('compare') || input.includes('difference')) {
+      return "The main differences between our plans are the number of users, data points, and available features. The Starter plan is best for individuals and small teams, Professional for growing teams needing more power, and Enterprise for organizations requiring maximum scalability and security.";
+    } else if (input.includes('hi') || input.includes('hello') || input.includes('hey')) {
+      return "Hello! I'm your KaloAI sales assistant. How can I help you today? Feel free to ask about our pricing, features, or anything else about our platform.";
+    } else if (input.includes('thank')) {
+      return "You're welcome! Is there anything else I can help you with today?";
+    } else if (input.includes('human') || input.includes('person') || input.includes('sales rep')) {
+      return "I'd be happy to connect you with a human sales representative. Could you please provide your email address so someone from our team can reach out to you?";
+    } else {
+      const genericResponses = [
+        "That's a great question! Our Enterprise plan includes unlimited users and advanced AI insights. Would you like me to connect you with a human sales rep for more details?",
+        "We offer custom plans for organizations with specific needs. Can you tell me more about your requirements?",
+        "I'd be happy to provide more information about that. To better assist you, could you share a bit more about what you're looking for?",
+        "Thanks for your interest! Is there a specific aspect of our platform you'd like to know more about?",
+        "I can definitely help with that. Could you provide a bit more detail about your use case so I can give you the most relevant information?",
+      ];
+      
+      return genericResponses[Math.floor(Math.random() * genericResponses.length)];
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -69,7 +101,7 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
   // Auto-scroll to bottom of messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isTyping]);
 
   if (!isOpen) return null;
 
@@ -133,6 +165,19 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
                 </div>
               </div>
             ))}
+            
+            {isTyping && (
+              <div className="mb-4 max-w-[85%] mr-auto">
+                <div className="p-3 rounded-xl bg-card border border-border/50 rounded-tl-none">
+                  <div className="flex space-x-1">
+                    <div className="h-2 w-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="h-2 w-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="h-2 w-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 
@@ -150,8 +195,8 @@ const ChatBot = ({ isOpen, onClose }: ChatBotProps) => {
               <Button
                 onClick={handleSendMessage}
                 size="icon"
-                variant={inputValue.trim() ? 'primary' : 'ghost'}
-                disabled={!inputValue.trim()}
+                variant={inputValue.trim() ? "default" : "ghost"}
+                disabled={!inputValue.trim() || isTyping}
               >
                 <Send size={18} />
               </Button>
