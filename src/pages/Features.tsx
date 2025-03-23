@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowRight, BarChart3, BrainCircuit, Clock, Code, Cpu, Database, 
   FileText, Globe, LineChart, Lock, MessagesSquare, Puzzle, Shield, TrendingUp, 
   Search, BarChart, Youtube, Zap 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard';
 import Button from '../components/Button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 
 const Features = () => {
+  const [trialDialogOpen, setTrialDialogOpen] = useState(false);
+  const [demoDialogOpen, setDemoDialogOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
   const primaryFeatures = [
     {
       icon: <TrendingUp size={24} />,
@@ -84,6 +98,44 @@ const Features = () => {
     },
   ];
 
+  const handleExploreClick = () => {
+    const element = document.getElementById('tiktok-features');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    toast({
+      title: "Features Guide Activated",
+      description: "Explore our TikTok Shop analytics capabilities",
+    });
+  };
+
+  const handleTrialSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Free Trial Started!",
+      description: "Check your email for login details to begin your trial.",
+    });
+    setTrialDialogOpen(false);
+    setEmail('');
+  };
+
+  const handleDemoSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Demo Scheduled!",
+      description: "Our team will contact you soon to set up your personalized demo.",
+    });
+    setDemoDialogOpen(false);
+    setEmail('');
+    setName('');
+    setMessage('');
+  };
+
+  const navigateToDashboard = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
@@ -134,7 +186,7 @@ const Features = () => {
       </section>
 
       {/* Feature Spotlight - TikTok Shop Insights */}
-      <section className="py-20 bg-background overflow-hidden">
+      <section id="tiktok-features" className="py-20 bg-background overflow-hidden scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
             <div className="lg:col-span-6 mb-12 lg:mb-0">
@@ -184,14 +236,21 @@ const Features = () => {
               </div>
               
               <div className="mt-10">
-                <Button icon={<ArrowRight />} iconPosition="right">
+                <Button 
+                  icon={<ArrowRight />} 
+                  iconPosition="right"
+                  onClick={handleExploreClick}
+                >
                   Explore TikTok features
                 </Button>
               </div>
             </div>
             
             <div className="lg:col-span-6 relative">
-              <div className="rounded-2xl overflow-hidden border border-border/50 shadow-xl relative">
+              <div 
+                className="rounded-2xl overflow-hidden border border-border/50 shadow-xl relative cursor-pointer transform transition-transform hover:scale-105"
+                onClick={navigateToDashboard}
+              >
                 {/* TikTok Shop Analytics UI Mock */}
                 <div className="aspect-[3/2] bg-gradient-to-br from-primary/5 to-blue-500/5 relative">
                   <div className="absolute inset-0 p-6">
@@ -297,16 +356,104 @@ const Features = () => {
               Start your free trial today and discover how our platform can drive your business growth.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" icon={<ArrowRight />} iconPosition="right">
+              <Button 
+                size="lg" 
+                icon={<ArrowRight />} 
+                iconPosition="right"
+                onClick={() => setTrialDialogOpen(true)}
+              >
                 Start free trial
               </Button>
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => setDemoDialogOpen(true)}
+              >
                 Schedule a demo
               </Button>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Trial Dialog */}
+      <Dialog open={trialDialogOpen} onOpenChange={setTrialDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Start your free trial</DialogTitle>
+            <DialogDescription>
+              Enter your email to begin your 14-day trial with full access to all features.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleTrialSubmit}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="trial-email">Email</Label>
+                <Input 
+                  id="trial-email" 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">Start Trial</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Demo Dialog */}
+      <Dialog open={demoDialogOpen} onOpenChange={setDemoDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Schedule a personalized demo</DialogTitle>
+            <DialogDescription>
+              Tell us a bit about your needs and we'll arrange a personalized demonstration.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleDemoSubmit}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="demo-name">Name</Label>
+                <Input 
+                  id="demo-name" 
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="demo-email">Email</Label>
+                <Input 
+                  id="demo-email" 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="demo-message">What are you interested in?</Label>
+                <Textarea 
+                  id="demo-message" 
+                  value={message} 
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Tell us about your specific needs or questions"
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">Request Demo</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
