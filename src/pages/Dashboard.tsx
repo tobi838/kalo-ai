@@ -9,6 +9,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LineCh
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowUpRight, Users, DollarSign, TrendingUp, BarChart3, Eye, Clock, ArrowRight } from 'lucide-react';
 import { useAnalytics } from '@/hooks/use-analytics';
+import DataSummary from '@/components/dashboard/DataSummary';
 
 const Dashboard = () => {
   const { user, loading, signOut } = useAuth();
@@ -116,6 +117,11 @@ const Dashboard = () => {
               </p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Add the Data Summary section here */}
+        <div className="mb-8">
+          <DataSummary analyticsData={analyticsData} />
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
