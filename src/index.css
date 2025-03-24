@@ -200,6 +200,54 @@ html {
   animation: pulse-soft 3s infinite ease-in-out;
 }
 
+/* New animations for dashboard preview */
+@keyframes chart {
+  0% { height: 0; }
+  100% { height: var(--chart-height, 100%); }
+}
+
+.animate-chart {
+  animation: chart 1.5s ease-out forwards;
+  height: 0;
+}
+
+@keyframes cursor-move {
+  0% { transform: translate(10%, 10%); }
+  25% { transform: translate(70%, 30%); }
+  50% { transform: translate(30%, 60%); }
+  75% { transform: translate(80%, 40%); }
+  100% { transform: translate(10%, 10%); }
+}
+
+.animate-cursor {
+  animation: cursor-move 15s ease-in-out infinite;
+}
+
+@keyframes progress {
+  0% { width: 0%; }
+  100% { width: 65%; }
+}
+
+.animate-progress {
+  animation: progress 2.5s ease-in-out forwards;
+}
+
+/* Video player styles */
+.video-player {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.video-controls {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.video-player:hover .video-controls {
+  opacity: 1;
+}
+
 /* Focus and accessibility improvements */
 :focus-visible {
   outline: 2px solid var(--ring);

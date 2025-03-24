@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { ArrowRight, BarChart3, Cpu, LineChart, Lock, Shield, Zap } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import FeatureCard from '../components/FeatureCard';
 import Button from '../components/Button';
+import VideoPlayer from '../components/VideoPlayer';
 
 const Index = () => {
   const features = [
@@ -128,17 +128,11 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-border/50 shadow-xl bg-gradient-to-br from-card to-card/50 glass">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 5V19L19 12L8 5Z" fill="currentColor" className="text-white" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <VideoPlayer 
+                videoSrc="/demo-video.mp4" 
+                posterSrc="/dashboard-preview.jpg"
+                title="Product Demo"
+              />
               
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/10 rounded-full filter blur-2xl"></div>
