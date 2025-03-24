@@ -200,10 +200,10 @@ html {
   animation: pulse-soft 3s infinite ease-in-out;
 }
 
-/* New animations for dashboard preview */
+/* Chart animations */
 @keyframes chart {
-  0% { height: 0; }
-  100% { height: var(--chart-height, 100%); }
+  0% { height: 0; opacity: 0; }
+  100% { height: var(--chart-height, 100%); opacity: 1; }
 }
 
 .animate-chart {
@@ -225,11 +225,30 @@ html {
 
 @keyframes progress {
   0% { width: 0%; }
-  100% { width: 65%; }
+  100% { width: 100%; }
 }
 
 .animate-progress {
   animation: progress 2.5s ease-in-out forwards;
+}
+
+/* Enhanced data visualization effects */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
+}
+
+.animate-glow {
+  animation: glow 4s ease-in-out infinite;
+}
+
+@keyframes ping {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-ping {
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* Video player styles */
