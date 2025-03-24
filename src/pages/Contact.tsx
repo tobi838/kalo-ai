@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Mail, Phone } from 'lucide-react';
 import Button from '../components/Button';
 
 const Contact = () => {
@@ -232,25 +232,6 @@ const Contact = () => {
                 </div>
               </div>
               
-              <div className="bg-card rounded-xl p-6 border border-border/50 shadow-sm">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                      <MapPin size={20} />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold mb-1">Visit Us</h3>
-                    <p className="text-foreground/70 mb-2">Our headquarters</p>
-                    <address className="not-italic text-foreground/70">
-                      123 Innovation Drive<br />
-                      San Francisco, CA 94105<br />
-                      United States
-                    </address>
-                  </div>
-                </div>
-              </div>
-              
               <div className="bg-primary/5 rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
                 <div className="flex space-x-4">
@@ -321,20 +302,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl overflow-hidden h-96 bg-primary/5 flex items-center justify-center border border-border/50">
-            <div className="text-center p-8">
-              <MapPin size={48} className="mx-auto mb-4 text-primary/60" />
-              <h3 className="text-xl font-semibold mb-2">Our Location</h3>
-              <p className="text-foreground/70">
-                Interactive map would be displayed here in a production environment
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Map Section - Removed */}
     </div>
   );
 };
