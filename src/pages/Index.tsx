@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { ArrowRight, BarChart3, Cpu, LineChart, Lock, Shield, Zap } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import FeatureCard from '../components/FeatureCard';
 import Button from '../components/Button';
 import VideoPlayer from '../components/VideoPlayer';
+import { Card } from '@/components/ui/card';
 
 const Index = () => {
   const features = [
@@ -128,15 +130,38 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <VideoPlayer 
-                videoSrc="/demo-video.mp4" 
-                posterSrc="/dashboard-preview.jpg"
-                title="Product Demo"
-              />
+              <Card className="overflow-hidden border-0 shadow-2xl">
+                <VideoPlayer 
+                  videoSrc="/demo-video.mp4" 
+                  posterSrc="/dashboard-preview.jpg"
+                  title="Product Demo: KaloAI Dashboard"
+                />
+              </Card>
               
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/10 rounded-full filter blur-2xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary/10 rounded-full filter blur-2xl"></div>
+              {/* Enhanced decorative elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/10 rounded-full filter blur-3xl opacity-60 animate-pulse-soft"></div>
+              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-blue-500/10 rounded-full filter blur-3xl opacity-50"></div>
+              
+              {/* Video features highlights */}
+              <div className="absolute -bottom-5 -right-5 bg-card border border-border shadow-lg rounded-lg p-3 md:flex items-center hidden animate-float" style={{ animationDelay: "0.5s" }}>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <Zap className="w-5 h-5 text-primary" />
+                </div>
+                <div className="text-sm">
+                  <div className="font-medium">Real-time insights</div>
+                  <div className="text-foreground/60 text-xs">Updates every 5 seconds</div>
+                </div>
+              </div>
+              
+              <div className="absolute -top-5 -left-5 bg-card border border-border shadow-lg rounded-lg p-3 md:flex items-center hidden animate-float" style={{ animationDelay: "0.2s" }}>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                  <Shield className="w-5 h-5 text-primary" />
+                </div>
+                <div className="text-sm">
+                  <div className="font-medium">Enterprise security</div>
+                  <div className="text-foreground/60 text-xs">GDPR & HIPAA compliant</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
