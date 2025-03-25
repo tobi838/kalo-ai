@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { ArrowRight, Mail, Phone } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
 import Button from '../components/Button';
 
 const Contact = () => {
@@ -210,23 +209,6 @@ const Contact = () => {
                     <p className="text-foreground/70 mb-2">We'll respond within 24 hours</p>
                     <a href="mailto:hello@kaloai.com" className="text-primary hover:underline">
                       hello@kaloai.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-card rounded-xl p-6 border border-border/50 shadow-sm">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                      <Phone size={20} />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold mb-1">Call Us</h3>
-                    <p className="text-foreground/70 mb-2">Mon-Fri from 9AM to 6PM</p>
-                    <a href="tel:+1-555-123-4567" className="text-primary hover:underline">
-                      +1 (555) 123-4567
                     </a>
                   </div>
                 </div>
