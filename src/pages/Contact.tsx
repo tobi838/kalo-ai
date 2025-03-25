@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ArrowRight, Mail, Phone } from 'lucide-react';
 import Button from '../components/Button';
@@ -64,29 +65,6 @@ const Contact = () => {
           <p className="mt-6 text-xl text-foreground/80 max-w-3xl mx-auto animate-fade-up" style={{ animationDelay: '0.4s' }}>
             Have questions or need assistance? We're here to help you get the most out of KaloAI.
           </p>
-        </div>
-      </section>
-
-      {/* Call Us Banner */}
-      <section className="py-8 bg-primary/5 mb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between bg-card rounded-2xl p-8 shadow-lg border border-primary/20 animate-fade-in">
-            <div className="flex items-center mb-6 md:mb-0">
-              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-6">
-                <Phone size={32} />
-              </div>
-              <div className="text-left">
-                <h2 className="text-2xl font-bold mb-1">Call Us Directly</h2>
-                <p className="text-foreground/70 text-lg">Our support team is available Mon-Fri from 9AM to 6PM</p>
-              </div>
-            </div>
-            <a href="tel:+1-555-123-4567" className="inline-flex">
-              <Button size="lg" variant="primary" className="text-lg font-medium">
-                <Phone className="mr-2" />
-                +1 (555) 123-4567
-              </Button>
-            </a>
-          </div>
         </div>
       </section>
 
@@ -323,8 +301,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-
-      {/* Map Section - Removed */}
     </div>
   );
 };
