@@ -62,7 +62,7 @@ const HeroSection = () => {
           </div>
           
           <div className="mt-8 flex justify-center space-x-6 text-sm animate-fade-up" style={{ animationDelay: '0.8s' }}>
-            {['No credit card required', 'Free 14-day trial', '24/7 support'].map((feature, index) => (
+            {['No credit card required', 'Free 14-day trial', 'Live chat support'].map((feature, index) => (
               <div key={index} className="flex items-center">
                 <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
                 <span>{feature}</span>
