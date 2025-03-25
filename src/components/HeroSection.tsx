@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, BarChart3, PieChart, LineChart, Users, TrendingUp, Activity } from 'lucide-react';
 import ButtonWrapper from './ButtonWrapper';
 
 const HeroSection = () => {
@@ -71,16 +71,108 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Dashboard Preview Image */}
+        {/* Dashboard Preview Component */}
         <div className="mt-16 relative max-w-5xl mx-auto animate-fade-up" style={{ animationDelay: '1s' }}>
-          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-border/40">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent pointer-events-none"></div>
-            <img 
-              src="/dashboard-preview.jpg" 
-              alt="KaloAI Dashboard" 
-              className="w-full"
-              style={{ maxHeight: '600px', objectFit: 'cover' }}
-            />
+          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-border/40 bg-background/95">
+            {/* Dashboard Header */}
+            <div className="p-4 border-b border-border/30 bg-card/50 flex justify-between items-center">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="h-6 w-24 bg-primary/10 rounded-md"></div>
+                <div className="h-6 w-6 rounded-full bg-primary/10"></div>
+              </div>
+            </div>
+            
+            {/* Dashboard Content */}
+            <div className="p-4 grid grid-cols-12 gap-4" style={{ height: '480px' }}>
+              {/* Sidebar */}
+              <div className="col-span-2 bg-card/50 rounded-lg p-3 border border-border/20">
+                <div className="space-y-4">
+                  <div className="h-8 flex items-center space-x-2 rounded-md bg-primary/10 p-2">
+                    <Activity className="h-4 w-4 text-primary" />
+                    <div className="h-3 w-14 bg-primary/20 rounded"></div>
+                  </div>
+                  {[Users, BarChart3, LineChart, TrendingUp, PieChart].map((Icon, idx) => (
+                    <div key={idx} className="h-8 flex items-center space-x-2 p-2 opacity-60 hover:opacity-100 transition-opacity">
+                      <Icon className="h-4 w-4" />
+                      <div className="h-3 w-14 bg-foreground/20 rounded"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Main Content */}
+              <div className="col-span-10 space-y-4">
+                {/* Stats Row */}
+                <div className="grid grid-cols-4 gap-4">
+                  {[
+                    { color: 'primary', number: '28.4K', label: 'Users' },
+                    { color: 'blue', number: '$85.2K', label: 'Revenue' },
+                    { color: 'green', number: '69.3%', label: 'Conversion' },
+                    { color: 'purple', number: '12.5M', label: 'Data Points' }
+                  ].map((stat, idx) => (
+                    <div key={idx} className="bg-card/50 rounded-lg p-3 border border-border/20 flex flex-col justify-between">
+                      <div className={`text-${stat.color}-500 text-lg font-bold`}>{stat.number}</div>
+                      <div className="text-sm text-foreground/60">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Charts Row */}
+                <div className="grid grid-cols-3 gap-4 h-52">
+                  {/* Line Chart Mock */}
+                  <div className="col-span-2 bg-card/50 rounded-lg p-3 border border-border/20">
+                    <div className="h-5 w-28 bg-foreground/20 rounded mb-2"></div>
+                    <div className="h-full flex items-end justify-between px-2 pt-6">
+                      <div className="h-[30%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[45%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[25%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[60%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[75%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[65%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[80%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[90%] w-2 bg-primary rounded-t"></div>
+                      <div className="h-[70%] w-2 bg-primary/60 rounded-t"></div>
+                      <div className="h-[85%] w-2 bg-primary rounded-t animate-pulse-soft"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Pie Chart Mock */}
+                  <div className="bg-card/50 rounded-lg p-3 border border-border/20">
+                    <div className="h-5 w-28 bg-foreground/20 rounded mb-2"></div>
+                    <div className="flex justify-center items-center h-[80%]">
+                      <div className="relative w-24 h-24">
+                        <div className="absolute inset-0 rounded-full border-8 border-primary/70"></div>
+                        <div className="absolute inset-0 rounded-full border-8 border-transparent border-t-blue-500/70 border-r-blue-500/70 transform rotate-45"></div>
+                        <div className="absolute inset-0 rounded-full border-8 border-transparent border-b-purple-500/70 transform -rotate-45"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Table Mock */}
+                <div className="bg-card/50 rounded-lg p-3 border border-border/20 grid gap-2">
+                  <div className="grid grid-cols-4 border-b border-border/20 pb-2">
+                    <div className="h-4 w-16 bg-foreground/20 rounded"></div>
+                    <div className="h-4 w-16 bg-foreground/20 rounded"></div>
+                    <div className="h-4 w-16 bg-foreground/20 rounded"></div>
+                    <div className="h-4 w-16 bg-foreground/20 rounded"></div>
+                  </div>
+                  {[1, 2, 3].map((row) => (
+                    <div key={row} className="grid grid-cols-4 py-2">
+                      <div className="h-4 w-20 bg-foreground/10 rounded"></div>
+                      <div className="h-4 w-14 bg-foreground/10 rounded"></div>
+                      <div className="h-4 w-12 bg-foreground/10 rounded"></div>
+                      <div className="h-4 w-16 bg-foreground/10 rounded"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
           
           {/* Floating stat cards */}
