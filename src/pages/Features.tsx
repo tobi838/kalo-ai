@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   ArrowRight, BarChart3, BrainCircuit, Clock, Code, Cpu, Database, 
@@ -7,6 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard';
 import Button from '../components/Button';
+import ButtonWrapper from '../components/ButtonWrapper';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,6 +21,7 @@ const Features = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -110,26 +113,83 @@ const Features = () => {
     });
   };
 
-  const handleTrialSubmit = (e: React.FormEvent) => {
+  const handleTrialSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Free Trial Started!",
-      description: "Check your email for login details to begin your trial.",
-    });
-    setTrialDialogOpen(false);
-    setEmail('');
+    
+    if (!email) {
+      toast({
+        title: "Error",
+        description: "Please enter your email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Simulate API call with a timeout
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      toast({
+        title: "Free Trial Started!",
+        description: "Check your email for login details to begin your trial.",
+      });
+      
+      setTrialDialogOpen(false);
+      setEmail('');
+      
+      // Redirect to registration page after a short delay
+      setTimeout(() => navigate('/register'), 1000);
+    } catch (error) {
+      console.error('Error starting trial:', error);
+      toast({
+        title: "Error",
+        description: "Failed to start your trial. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleDemoSubmit = (e: React.FormEvent) => {
+  const handleDemoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Demo Scheduled!",
-      description: "Our team will contact you soon to set up your personalized demo.",
-    });
-    setDemoDialogOpen(false);
-    setEmail('');
-    setName('');
-    setMessage('');
+    
+    if (!email || !name) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Simulate API call with a timeout
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      toast({
+        title: "Demo Scheduled!",
+        description: "Our team will contact you soon to set up your personalized demo.",
+      });
+      
+      setDemoDialogOpen(false);
+      setEmail('');
+      setName('');
+      setMessage('');
+    } catch (error) {
+      console.error('Error scheduling demo:', error);
+      toast({
+        title: "Error",
+        description: "Failed to schedule your demo. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const navigateToDashboard = () => {
@@ -236,13 +296,13 @@ const Features = () => {
               </div>
               
               <div className="mt-10">
-                <Button 
+                <ButtonWrapper 
                   icon={<ArrowRight />} 
                   iconPosition="right"
                   onClick={handleExploreClick}
                 >
                   Explore TikTok features
-                </Button>
+                </ButtonWrapper>
               </div>
             </div>
             
@@ -356,21 +416,21 @@ const Features = () => {
               Start your free trial today and discover how our platform can drive your business growth.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <ButtonWrapper 
                 size="lg" 
                 icon={<ArrowRight />} 
                 iconPosition="right"
                 onClick={() => setTrialDialogOpen(true)}
               >
                 Start free trial
-              </Button>
-              <Button 
+              </ButtonWrapper>
+              <ButtonWrapper 
                 variant="outline" 
                 size="lg"
                 onClick={() => setDemoDialogOpen(true)}
               >
                 Schedule a demo
-              </Button>
+              </ButtonWrapper>
             </div>
           </div>
         </div>
@@ -396,11 +456,14 @@ const Features = () => {
                   onChange={(e) => setEmail(e.target.value)} 
                   placeholder="your@email.com"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Start Trial</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Starting trial...' : 'Start Trial'}
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>
@@ -425,6 +488,7 @@ const Features = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="grid gap-2">
@@ -436,6 +500,7 @@ const Features = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div className="grid gap-2">
@@ -445,11 +510,14 @@ const Features = () => {
                   value={message} 
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tell us about your specific needs or questions"
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Request Demo</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Requesting...' : 'Request Demo'}
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

@@ -3,7 +3,7 @@ import React from 'react';
 import { ArrowRight, BarChart3, Cpu, LineChart, Lock, Shield, Zap } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import FeatureCard from '../components/FeatureCard';
-import Button from '../components/Button';
+import ButtonWrapper from '../components/ButtonWrapper';
 import VideoPlayer from '../components/VideoPlayer';
 import { Card } from '@/components/ui/card';
 
@@ -123,9 +123,13 @@ const Index = () => {
               </div>
               
               <div className="mt-10">
-                <Button icon={<ArrowRight />} iconPosition="right">
+                <ButtonWrapper 
+                  icon={<ArrowRight />} 
+                  iconPosition="right"
+                  href="/features"
+                >
                   See it in action
-                </Button>
+                </ButtonWrapper>
               </div>
             </div>
             
@@ -239,12 +243,21 @@ const Index = () => {
               Join thousands of companies that are using KaloAI to unlock the full potential of their data.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" icon={<ArrowRight />} iconPosition="right">
+              <ButtonWrapper 
+                size="lg" 
+                icon={<ArrowRight />} 
+                iconPosition="right"
+                href="/register"
+              >
                 Get started free
-              </Button>
-              <Button variant="outline" size="lg">
+              </ButtonWrapper>
+              <ButtonWrapper 
+                variant="outline" 
+                size="lg"
+                href="/contact"
+              >
                 Talk to sales
-              </Button>
+              </ButtonWrapper>
             </div>
           </div>
         </div>

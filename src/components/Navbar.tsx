@@ -1,14 +1,17 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import Button from './Button';
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +43,20 @@ const Navbar = () => {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle('dark');
+  };
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setIsOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   const navigation = [
@@ -98,8 +115,17 @@ const Navbar = () => {
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <Button variant="ghost" size="sm" href="/contact">Sign in</Button>
-            <Button variant="gradient" size="sm" animation="scale" href="/features">Get started free</Button>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>Dashboard</Button>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>Sign out</Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Button variant="ghost" size="sm" onClick={() => navigate('/login')}>Sign in</Button>
+                <Button variant="gradient" size="sm" animation="scale" onClick={() => navigate('/register')}>Get started free</Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -139,8 +165,17 @@ const Navbar = () => {
             </Link>
           ))}
           <div className="pt-4 pb-2 border-t border-border/30 flex flex-col space-y-2">
-            <Button variant="ghost" fullWidth href="/contact">Sign in</Button>
-            <Button variant="gradient" fullWidth animation="scale" href="/features">Get started free</Button>
+            {user ? (
+              <>
+                <Button variant="ghost" fullWidth onClick={() => handleNavigation('/dashboard')}>Dashboard</Button>
+                <Button variant="ghost" fullWidth onClick={handleSignOut}>Sign out</Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" fullWidth onClick={() => handleNavigation('/login')}>Sign in</Button>
+                <Button variant="gradient" fullWidth animation="scale" onClick={() => handleNavigation('/register')}>Get started free</Button>
+              </>
+            )}
           </div>
         </div>
       </div>
