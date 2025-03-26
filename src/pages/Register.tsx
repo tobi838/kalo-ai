@@ -84,8 +84,8 @@ const Register = () => {
   };
 
   return (
-    <div className="container max-w-md py-12">
-      <Card>
+    <div className="flex items-center justify-center min-h-screen py-10 px-4">
+      <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Create an account</CardTitle>
           <CardDescription>
