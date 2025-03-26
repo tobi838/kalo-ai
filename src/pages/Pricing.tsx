@@ -1,13 +1,9 @@
-
 import React, { useState } from 'react';
 import { ArrowRight, Check, HelpCircle } from 'lucide-react';
-import Button from '../components/Button';
-import ChatBot from '../components/ChatBot';
 import ButtonWrapper from '../components/ButtonWrapper';
 
 const Pricing = () => {
   const [annual, setAnnual] = useState(true);
-  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
   
   const plans = [
     {
@@ -358,13 +354,6 @@ const Pricing = () => {
                 size="lg" 
                 icon={<ArrowRight />} 
                 iconPosition="right"
-                onClick={() => setIsChatBotOpen(true)}
-              >
-                Contact sales
-              </ButtonWrapper>
-              <ButtonWrapper 
-                variant="outline" 
-                size="lg" 
                 href="/contact"
               >
                 Schedule a demo
@@ -373,9 +362,6 @@ const Pricing = () => {
           </div>
         </div>
       </section>
-
-      {/* Chat Bot */}
-      <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
     </div>
   );
 };
