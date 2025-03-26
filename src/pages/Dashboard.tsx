@@ -1,8 +1,5 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LineChart, Line, Area, AreaChart } from 'recharts';
@@ -10,18 +7,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowUpRight, Users, DollarSign, TrendingUp, BarChart3, Eye, Clock, ArrowRight } from 'lucide-react';
 import { useAnalytics } from '@/hooks/use-analytics';
 import DataSummary from '@/components/dashboard/DataSummary';
+import UserProfile from '@/components/dashboard/UserProfile';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Dashboard = () => {
-  const { user, loading, signOut } = useAuth();
-  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const [timeframe, setTimeframe] = useState('weekly');
   const { data: analyticsData, loading: analyticsLoading } = useAnalytics();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate('/login');
-    }
-  }, [user, loading, navigate]);
 
   const chartConfig = {
     views: { label: 'Views', theme: { light: '#8B5CF6', dark: '#9B87F5' } },
@@ -29,7 +21,7 @@ const Dashboard = () => {
     followers: { label: 'Followers', theme: { light: '#F59E0B', dark: '#FBBF24' } },
   };
 
-  if (loading || analyticsLoading) {
+  if (analyticsLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="flex flex-col items-center gap-3">
@@ -51,6 +43,10 @@ const Dashboard = () => {
           <div className="flex gap-4">
             <Button variant="outline" onClick={() => signOut()}>Sign out</Button>
           </div>
+        </div>
+
+        <div className="mb-8">
+          <UserProfile />
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
@@ -119,7 +115,6 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Add the Data Summary section here */}
         <div className="mb-8">
           <DataSummary analyticsData={analyticsData} />
         </div>
@@ -242,7 +237,6 @@ const Dashboard = () => {
                     <YAxis />
                     <ChartTooltip content={<ChartTooltipContent />} />
                     <Bar dataKey="revenue" fill="#10B981" radius={[4, 4, 0, 0]}>
-                      {/* Adding gradient effect to bars */}
                       <defs>
                         <linearGradient id="revenueColorGradient" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor="#10B981" stopOpacity={1} />

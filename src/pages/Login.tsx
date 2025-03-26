@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,23 +7,30 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, isConfigured } = useAuth();
+  const { signIn, isConfigured, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!isConfigured) {
       toast({
-        title: "Supabase Not Configured",
-        description: "Please set up your Supabase environment variables first.",
+        title: "Supabase Configuration Required",
+        description: "Please set up Supabase environment variables to enable authentication.",
         variant: "destructive",
       });
       return;
@@ -31,8 +38,8 @@ const Login = () => {
     
     if (!email || !password) {
       toast({
-        title: 'Error',
-        description: 'Please fill in all fields',
+        title: 'Missing Information',
+        description: 'Please enter both email and password.',
         variant: 'destructive',
       });
       return;
@@ -42,14 +49,25 @@ const Login = () => {
       setIsLoading(true);
       await signIn(email, password);
       toast({
-        title: 'Success',
-        description: 'You have successfully logged in',
+        title: 'Login Successful',
+        description: 'You have been successfully logged in.',
       });
       navigate('/dashboard');
     } catch (error) {
+      let errorMessage = 'Failed to log in. Please check your credentials.';
+      
+      if (error instanceof Error) {
+        // Check for specific Supabase error messages
+        if (error.message.includes('Invalid login credentials')) {
+          errorMessage = 'Invalid email or password. Please try again.';
+        } else if (error.message.includes('Email not confirmed')) {
+          errorMessage = 'Please verify your email before logging in.';
+        }
+      }
+      
       toast({
-        title: 'Error',
-        description: 'Failed to log in. Please check your credentials.',
+        title: 'Login Failed',
+        description: errorMessage,
         variant: 'destructive',
       });
       console.error('Login error:', error);
@@ -92,7 +110,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={!isConfigured}
+                disabled={!isConfigured || isLoading}
               />
             </div>
             <div className="space-y-2">
@@ -108,7 +126,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={!isConfigured}
+                disabled={!isConfigured || isLoading}
               />
             </div>
           </CardContent>
@@ -118,7 +136,14 @@ const Login = () => {
               className="w-full" 
               disabled={isLoading || !isConfigured}
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                'Sign in'
+              )}
             </Button>
             <div className="text-sm text-center text-muted-foreground">
               Don&apos;t have an account?{' '}
