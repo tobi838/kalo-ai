@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ArrowRight, Check, HelpCircle } from 'lucide-react';
 import Button from '../components/Button';
 import ChatBot from '../components/ChatBot';
+import ButtonWrapper from '../components/ButtonWrapper';
 
 const Pricing = () => {
   const [annual, setAnnual] = useState(true);
@@ -12,8 +13,8 @@ const Pricing = () => {
     {
       name: 'Starter',
       description: 'Perfect for individuals and small teams just getting started with data analytics.',
-      monthlyPrice: 29,
-      annualPrice: 24,
+      monthlyPrice: 10,
+      annualPrice: 8,
       features: [
         'Up to 5 users',
         '100K data points',
@@ -27,14 +28,15 @@ const Pricing = () => {
         'No custom APIs',
         'Basic visualizations only'
       ],
-      cta: 'Start with Starter',
+      cta: 'Get Started',
+      ctaRoute: '/register',
       popular: false
     },
     {
-      name: 'Professional',
+      name: 'Advanced',
       description: 'Ideal for growing teams that need more power and advanced analytics capabilities.',
-      monthlyPrice: 79,
-      annualPrice: 69,
+      monthlyPrice: 30,
+      annualPrice: 25,
       features: [
         'Up to 20 users',
         '1M data points',
@@ -47,14 +49,15 @@ const Pricing = () => {
         'Team collaboration'
       ],
       limitations: [],
-      cta: 'Start with Professional',
+      cta: 'Choose Advanced',
+      ctaRoute: '/register',
       popular: true
     },
     {
-      name: 'Enterprise',
+      name: 'Premium',
       description: 'For organizations that require the ultimate in scalability, security, and support.',
-      monthlyPrice: 199,
-      annualPrice: 179,
+      monthlyPrice: 60,
+      annualPrice: 50,
       features: [
         'Unlimited users',
         'Unlimited data points',
@@ -69,7 +72,8 @@ const Pricing = () => {
         'Onboarding assistance'
       ],
       limitations: [],
-      cta: 'Contact Sales',
+      cta: 'Choose Premium',
+      ctaRoute: '/register',
       popular: false
     }
   ];
@@ -157,16 +161,16 @@ const Pricing = () => {
                   )}
                   
                   <div className="mt-6">
-                    <Button 
+                    <ButtonWrapper 
                       fullWidth 
                       icon={<ArrowRight />} 
                       iconPosition="right"
                       variant={plan.popular ? "primary" : "outline"}
                       className={plan.popular ? "shadow-md" : ""}
-                      onClick={() => plan.name === 'Enterprise' ? setIsChatBotOpen(true) : null}
+                      href={plan.ctaRoute}
                     >
                       {plan.cta}
-                    </Button>
+                    </ButtonWrapper>
                   </div>
                 </div>
                 
@@ -350,17 +354,21 @@ const Pricing = () => {
               Our team is ready to help you find the perfect plan for your needs.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <ButtonWrapper 
                 size="lg" 
                 icon={<ArrowRight />} 
                 iconPosition="right"
                 onClick={() => setIsChatBotOpen(true)}
               >
                 Contact sales
-              </Button>
-              <Button variant="outline" size="lg">
+              </ButtonWrapper>
+              <ButtonWrapper 
+                variant="outline" 
+                size="lg" 
+                href="/contact"
+              >
                 Schedule a demo
-              </Button>
+              </ButtonWrapper>
             </div>
           </div>
         </div>
