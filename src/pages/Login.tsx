@@ -6,14 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn, isConfigured, user } = useAuth();
+  const { signIn, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -26,15 +25,6 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!isConfigured) {
-      toast({
-        title: "Supabase Configuration Required",
-        description: "Please set up Supabase environment variables to enable authentication.",
-        variant: "destructive",
-      });
-      return;
-    }
     
     if (!email || !password) {
       toast({
@@ -86,19 +76,6 @@ const Login = () => {
           </CardDescription>
         </CardHeader>
         
-        {!isConfigured && (
-          <CardContent>
-            <Alert variant="destructive" className="mb-4">
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Configuration Required</AlertTitle>
-              <AlertDescription>
-                Supabase is not configured. Please set the VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY 
-                environment variables to use authentication features.
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        )}
-        
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
@@ -110,7 +87,7 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={!isConfigured || isLoading}
+                disabled={isLoading}
               />
             </div>
             <div className="space-y-2">
@@ -126,7 +103,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={!isConfigured || isLoading}
+                disabled={isLoading}
               />
             </div>
           </CardContent>
@@ -134,7 +111,7 @@ const Login = () => {
             <Button 
               type="submit" 
               className="w-full" 
-              disabled={isLoading || !isConfigured}
+              disabled={isLoading}
             >
               {isLoading ? (
                 <>

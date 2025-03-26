@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase } from '../integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 type AuthContextType = {
@@ -20,75 +20,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isConfigured, setIsConfigured] = useState(false);
+  const [isConfigured, setIsConfigured] = useState(true); // Always true since we're using the configured client
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if Supabase is configured
-    setIsConfigured(isSupabaseConfigured());
-    
-    // Only try to get session if Supabase is configured
-    if (isSupabaseConfigured()) {
-      // Get initial session
-      supabase.auth.getSession().then(({ data: { session } }) => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
-      });
+      }
+    );
 
-      // Listen for auth changes
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
-        (_event, session) => {
-          setSession(session);
-          setUser(session?.user ?? null);
-          setLoading(false);
-        }
-      );
-
-      return () => subscription.unsubscribe();
-    } else {
-      setLoading(false);
-    }
+    return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    if (!isConfigured) {
-      toast({
-        title: "Supabase Not Configured",
-        description: "Please set up your Supabase environment variables first.",
-        variant: "destructive",
-      });
-      throw new Error("Supabase not configured");
-    }
-    
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
   };
 
   const signUp = async (email: string, password: string) => {
-    if (!isConfigured) {
-      toast({
-        title: "Supabase Not Configured",
-        description: "Please set up your Supabase environment variables first.",
-        variant: "destructive",
-      });
-      throw new Error("Supabase not configured");
-    }
-    
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
   };
 
   const signOut = async () => {
-    if (!isConfigured) {
-      toast({
-        title: "Supabase Not Configured",
-        description: "Please set up your Supabase environment variables first.",
-        variant: "destructive",
-      });
-      throw new Error("Supabase not configured");
-    }
-    
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
