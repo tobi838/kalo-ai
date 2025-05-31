@@ -12,6 +12,8 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { signUp, user } = useAuth();
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const Register = () => {
     if (!email || !password || !confirmPassword) {
       toast({
         title: 'Missing Information',
-        description: 'Please fill in all fields',
+        description: 'Please fill in all required fields',
         variant: 'destructive',
       });
       return;
@@ -56,7 +58,12 @@ const Register = () => {
     
     try {
       setIsLoading(true);
-      await signUp(email, password);
+      const metadata = {
+        ...(firstName && { first_name: firstName }),
+        ...(lastName && { last_name: lastName })
+      };
+      
+      await signUp(email, password, metadata);
       toast({
         title: 'Registration Successful',
         description: 'Please check your email for verification.',
@@ -66,7 +73,6 @@ const Register = () => {
       let errorMessage = 'Failed to register. Please try again.';
       
       if (error instanceof Error) {
-        // Check for specific Supabase error messages
         if (error.message.includes('already registered')) {
           errorMessage = 'This email is already registered. Please use a different email or try logging in.';
         }
@@ -89,14 +95,38 @@ const Register = () => {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Create an account</CardTitle>
           <CardDescription>
-            Enter your email and create a password to get started
+            Enter your information to get started with TikTok Shop Analytics
           </CardDescription>
         </CardHeader>
         
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label htmlFor="firstName" className="text-sm font-medium">First Name</label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="lastName" className="text-sm font-medium">Last Name</label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">Email</label>
+              <label htmlFor="email" className="text-sm font-medium">Email *</label>
               <Input
                 id="email"
                 type="email"
@@ -108,7 +138,7 @@ const Register = () => {
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">Password</label>
+              <label htmlFor="password" className="text-sm font-medium">Password *</label>
               <Input
                 id="password"
                 type="password"
@@ -119,7 +149,7 @@ const Register = () => {
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="text-sm font-medium">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="text-sm font-medium">Confirm Password *</label>
               <Input
                 id="confirmPassword"
                 type="password"
